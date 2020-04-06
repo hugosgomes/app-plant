@@ -1,23 +1,33 @@
-import React from 'react'
-import { Dimensions, StyleSheet, FlatList, Image } from 'react-native';
+import React, {useState} from 'react'
+import { Animated, Dimensions, StyleSheet, FlatList, Image, Modal, ScrollView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { Button, Block, Text } from '../components';
 import { theme } from '../constants';
 
 const Welcome = (props) => {
+  const [showTerms, setShowTerms] = useState(false);
+  const navigation = useNavigation();
+
   const navigationOptions = {
     header: null,
   }
 
-  const { width, height } = Dimensions.get('window');
+  const illustrations = props.illustrations || [
+    {id: 1, source: require('../../assets/images/illustration_1.png')},
+    {id: 2, source: require('../../assets/images/illustration_2.png')},
+    {id: 3, source: require('../../assets/images/illustration_3.png')},
+  ];
 
+  const { width, height } = Dimensions.get('window');
+  const scrollX = new Animated.Value(0);
+
+  const handleLogin = () => {
+    //auth with 3rd party service
+    navigation.navigate('Login');
+  }
   
-  const renderIllustrations = () => { 
-    const illustrations = props.illustrations || [
-      {id: 1, source: require('../../assets/images/illustration_1.png')},
-      {id: 2, source: require('../../assets/images/illustration_2.png')},
-      {id: 3, source: require('../../assets/images/illustration_3.png')},
-    ];
+  const renderIllustrations = (illustrations) => { 
 
     return (
       <FlatList 
@@ -37,20 +47,74 @@ const Welcome = (props) => {
             style={{ width, height: height / 2, overflow: 'visible'}}
           />
         )}
+        onScroll={
+          Animated.event([{
+              nativeEvent: { contentOffset: { x: scrollX } }
+          }])
+        }
       />
     )
   }
-  const renderSteps = () => { 
+
+  const renderSteps = (illustrations) => { 
+    const stepPosition = Animated.divide(scrollX, width);
     return (
-      <Block>
-        <Text>* * *</Text>
+      <Block row center middle style={styles.stepsContainer}>
+        {illustrations.map((item, index) => {
+          const opacity = stepPosition.interpolate({
+            inputRange: [index - 1, index, index + 1],
+            outputRange: [0.4, 1, 0.4],
+            extrapolate: 'clamp'
+          });
+          return(
+            <Block 
+            animated 
+            flex={false} 
+            key={`step-${index}`} 
+            color="gray" 
+            style={[ styles.steps, { opacity }]} />
+          )
+        })}
       </Block>
     )
   }
 
+  const renderTermsService = () => {
+    return(
+      <Modal animationType="slide" visible={showTerms}>
+        <Block padding={[theme.sizes.padding * 2, theme.sizes.padding]} space="between">
+          <Text center h2 light>Termos do Serviço</Text>
+          <ScrollView style={{paddingVertical: theme.sizes.padding}}>
+            <Text caption gray height={18}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </Text>
+            <Text caption gray height={18}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </Text>
+            <Text caption gray height={18}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </Text>
+            <Text caption gray height={18}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </Text>
+            <Text caption gray height={18}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </Text>
+            <Text caption gray height={18}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </Text>
+          </ScrollView>
+          <Button gradient onPress={(() => setShowTerms(false))}>
+            <Text center white>Eu aceito</Text>
+          </Button>
+        </Block>
+      </Modal>
+    );
+  }
+
   return (
     <Block>
-      <Block center middle flex={0.3}>
+      <Block center middle flex={0.5}>
         <Text h1 center bold>
           Your Home.
           <Text h1 primary>Greener</Text>
@@ -60,20 +124,21 @@ const Welcome = (props) => {
         </Text>
       </Block>
       <Block center middle>
-        {renderIllustrations()}
-        {renderSteps()}
+        {renderIllustrations(illustrations)}
+        {renderSteps(illustrations)}
       </Block>
       <Block middle flex={0.5} margin={[0, theme.sizes.padding * 2]}>
-        <Button gradient onPress={(() => {})}>
+        <Button gradient onPress={() => {navigation.navigate('Login')}}>
           <Text center semibold white>Login</Text>
         </Button>
-        <Button shadow onPress={(() => {})}>
+        <Button shadow onPress={(() => navigation.navigate('Signup'))}>
           <Text center semibold>Signup</Text>
         </Button>
-        <Button onPress={(() => {})}>
+        <Button onPress={(() => setShowTerms(true))}>
           <Text center caption gray>Terms of Service</Text>
         </Button>
       </Block>
+      {renderTermsService()}
     </Block>
   );
 }
