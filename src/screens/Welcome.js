@@ -9,10 +9,6 @@ const Welcome = (props) => {
   const [showTerms, setShowTerms] = useState(false);
   const navigation = useNavigation();
 
-  const navigationOptions = {
-    header: null,
-  }
-
   const illustrations = props.illustrations || [
     {id: 1, source: require('../../assets/images/illustration_1.png')},
     {id: 2, source: require('../../assets/images/illustration_2.png')},
@@ -114,13 +110,13 @@ const Welcome = (props) => {
 
   return (
     <Block>
-      <Block center middle flex={0.5}>
+      <Block center bottom flex={0.4}>
         <Text h1 center bold>
           Your Home.
-          <Text h1 primary>Greener</Text>
+          <Text h1 primary> Greener</Text>
         </Text>
         <Text h3 gray2 style={{ marginTop: theme.sizes.padding / 2 }}>
-          Enjoy the experience
+          Aproveite sua experiência
         </Text>
       </Block>
       <Block center middle>
@@ -132,10 +128,10 @@ const Welcome = (props) => {
           <Text center semibold white>Login</Text>
         </Button>
         <Button shadow onPress={(() => navigation.navigate('Signup'))}>
-          <Text center semibold>Signup</Text>
+          <Text center semibold>Cadastre-se</Text>
         </Button>
         <Button onPress={(() => setShowTerms(true))}>
-          <Text center caption gray>Terms of Service</Text>
+          <Text center caption gray>Termos de Serviço</Text>
         </Button>
       </Block>
       {renderTermsService()}
