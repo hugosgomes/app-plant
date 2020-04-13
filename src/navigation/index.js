@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Image } from 'react-native'
+import React from 'react';
+import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 

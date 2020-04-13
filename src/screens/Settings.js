@@ -187,5 +187,3 @@ const styles = StyleSheet.create({
     width: 100
   }
 });
-
-//3:01:23
