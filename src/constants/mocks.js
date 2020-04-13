@@ -4,42 +4,42 @@ const categories = [
     name: 'Plantas',
     tags: ['products', 'inspirations'],
     count: 147,
-    imags: require('../../assets/icons/plants.png')
+    image: require('../../assets/icons/plants.png')
   },
   {
     id: 'seeds',
     name: 'Sementes',
     tags: ['products', 'shop'],
     count: 16,
-    imags: require('../../assets/icons/seeds.png')
+    image: require('../../assets/icons/seeds.png')
   },
   {
     id: 'flowers',
     name: 'Flores',
     tags: ['products', 'inspirations'],
     count: 68,
-    imags: require('../../assets/icons/flowers.png')
+    image: require('../../assets/icons/flowers.png')
   },
   {
     id: 'sprayers',
     name: 'Pulverizadores',
     tags: ['products', 'shop'],
     count: 17,
-    imags: require('../../assets/icons/sprayers.png')
+    image: require('../../assets/icons/sprayers.png')
   },
   {
     id: 'pots',
     name: 'Vasos',
     tags: ['products', 'shop'],
     count: 47,
-    imags: require('../../assets/icons/pots.png')
+    image: require('../../assets/icons/pots.png')
   },
   {
     id: 'fertilizers',
     name: 'Fertilizantes',
     tags: ['products', 'shop'],
     count: 9,
-    imags: require('../../assets/icons/fertilizers.png')
+    image: require('../../assets/icons/fertilizers.png')
   },
 ];
 
