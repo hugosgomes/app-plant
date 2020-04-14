@@ -49,11 +49,14 @@ const products = [
     name: '16 melhores plantas que prosperam em seu quarto',
     description: 'Os quartos merecem ser decorados com uma vegetação luxuriante, como em qualquer outro cômodo da casa - mas pode ser complicado encontrar uma planta que prospere aqui. Pouca luz, alta umidade e temperaturas quentes significam que apenas algumas plantas florescem.',
     tags: ['Interior', '27 m²', 'Ideas'],
-    gallery: [
+    images: [
       require('../../assets/images/plants_1.png'),
       require('../../assets/images/plants_2.png'),
       require('../../assets/images/plants_3.png'),
       //showing only 3 images, show +3 for the rest
+      require('../../assets/images/plants_1.png'),
+      require('../../assets/images/plants_2.png'),
+      require('../../assets/images/plants_3.png'),
       require('../../assets/images/plants_1.png'),
       require('../../assets/images/plants_2.png'),
       require('../../assets/images/plants_3.png'),

@@ -2,6 +2,9 @@ import React from 'react';
 import { Image } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { Entypo } from '@expo/vector-icons/';
+
+import { Button } from '../components'
 
 import Welcome from '../screens/Welcome';
 import Login from '../screens/Login';
@@ -47,7 +50,17 @@ export default function Navigation () {
         <AppStack.Screen name="Forgot" component={Forgot} />
         <AppStack.Screen name="Explore" component={Explore} />
         <AppStack.Screen name="Browse" component={Browse} />
-        <AppStack.Screen name="Product" component={Product} />
+        <AppStack.Screen
+          name="Product"
+          component={Product}
+          options={{
+            headerRight:() => (
+              <Button onPress={() => {}}>
+                <Entypo name="dots-three-horizontal" color={theme.colors.gray} />
+              </Button>
+            ),
+          }}
+        />
         <AppStack.Screen name="Settings" component={Settings} />
       </AppStack.Navigator>
     </NavigationContainer>
